@@ -2,26 +2,23 @@
 <html lang="en">
 <head>
     <%- include("partials/head") %>
-    <title>Hello World</title>
+    <title>TM | teacher registration</title>
 </head>
 <body>
     <%- include("partials/header") %>
     <div class="container">
-        <h2>Login</h2>
-        <form>
+        <h2>Register as a Teacher</h2>
+        <form action='/api/register-teacher' method='post'>
             <input type='text' name='username' placeholder='username'/>
             <br>
             <input type='password' name='password' />
             <br>
-            <button type='submit'>Sign In</button>
+            <button type='submit'>Register</button>
         </form>
+         <p>Not a Teacher?</p> 
+         <a href='/register-student'>Register as a Student</a>
+         
     </div>
     <%- include("partials/footer") %>
 </body>
 </html>
-
-
-
-
-
-

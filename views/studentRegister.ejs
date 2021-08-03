@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/head") %>
+    <title>TM | student registration</title>
+</head>
+<body>
+    <%- include("partials/header") %>
+    <div class="container">
+        <h2>Register as a Student</h2>
+        <form action='/api/register-student' method='post'>
+            <input type='text' name='username' placeholder='username'/>
+            <br>
+            <input type='password' name='password' />
+            <br>
+            <button type='submit'>Register</button>
+        </form>
+         <p>Not a Student?</p> 
+         <a href='/teacher-register'>Register as a Teacher</a>
+         
+    </div>
+    <%- include("partials/footer") %>
+</body>
+</html>
+
+
+
+
+
+

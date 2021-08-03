@@ -4,7 +4,7 @@ const { User } = require('../../models');
 // The `/api/categories` endpoint
 
 
-router.post('/signup', async (req, res) => {
+router.post('/register-teacher', async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
 //   const category = await Category.findOne({
@@ -15,7 +15,8 @@ router.post('/signup', async (req, res) => {
 //       model: Product
 //     }]
 //  });
-//   res.json(category); 
+//   res.json(category);
+console.log(`/api/register-teacher | ${req.body.username} ${req.body.password}`) 
 });
 
 router.post('/login', async (req, res) => {

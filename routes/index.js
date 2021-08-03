@@ -1,6 +1,14 @@
 const router = require('express').Router();
 const apiRoutes = require('./api');
-require('./config/passport')(passport);
+const passport = require('passport');
+require('../config/passport')(passport);
+router.get('/register-teacher', (req, res) => {
+  res.render('teacherRegister')
+})
+
+router.get('/register-student', (req, res) => {
+  res.render('studentRegister')
+})
 
 
 // The wanted route you want to server
@@ -45,7 +53,7 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/home', (req, res) => {
-  res.render('authenticedHome')
+  res.render('authenticatedHome')
 })
 
 router.post('/login', (req, res, next) => {
