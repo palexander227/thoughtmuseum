@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const apiRoutes = require('./api');
+require('./config/passport')(passport);
+
 
 // The wanted route you want to server
 // GET /users
@@ -35,6 +37,24 @@ router.use('/api', apiRoutes);
 
 router.get("/", (req, res) => {
   res.render('index');
+})
+
+router.get('/login', (req, res) => {
+  console.log('I am here')
+  res.render('login');
+});
+
+router.get('/home', (req, res) => {
+  res.render('authenticedHome')
+})
+
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/home',
+    failureRedirect: '/login',
+    failureFlash: true
+  })(req, res, next)
+
 })
 
 const showNotFound = res => {
@@ -77,5 +97,7 @@ router.use((err, req, res, next) => {
   }
   res.status(500).end(errMsg)
 });
+
+
 
 module.exports = router;
