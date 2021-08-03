@@ -1,0 +1,9 @@
+-- DROP DATABASE
+DROP DATABASE IF EXISTS thoughtmuseum_db;
+
+-- CREATE DATABASE
+CREATE DATABASE thoughtmuseum_db;
+
+
+
+
