@@ -1,7 +1,41 @@
+//assuming for this rollout, we are only identifying them by username and id
+//for this demo----consider the following routine
+/* create student account --- coolkid123
+create teacher --- teacher123
+THEN teacher LOGSIN AND creates workspace
+teacher assigns student to the workspace
+teacher adds post to workspace
+
+NOW login as student --- student can view list of workspaces
+student accesses workspace and can view "first post"
+student comments on the post the teacher makes
+
+teacher logs in, views the student response(comment) and comments back, and posts a link
+
+TO DO: 1) have to build the standard login page and routes associated with it
+2) we have to build a create workspace form only accessible by teacher; a feature of this
+is 'select student' --- note: assumes student is already registed in the database.
+3) build dashboard view which contains list of workspaces
+4) build workspace view which lists the posts
+5) add post and add comment feature both require new api routes
+note: add post includes and link as a feature*/
+
+
+
+
+
+
+
+
+
+
+
 const router = require('express').Router();
 const apiRoutes = require('./api');
 const passport = require('passport');
+
 require('../config/passport')(passport);
+
 router.get('/register-teacher', (req, res) => {
   res.render('teacherRegister')
 })

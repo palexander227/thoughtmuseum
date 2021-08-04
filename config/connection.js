@@ -2,6 +2,8 @@ require('dotenv').config();
 
 const Sequelize = require('sequelize');
 
+//  drop database thoughtmuseum_db; create database thoughtmuseum_db; use thoughtmuseum_db
+
 // const sequelize = process.env.JAWSDB_URL
   // ? new Sequelize(process.env.JAWSDB_URL)
   const sequelize = new Sequelize(
@@ -15,13 +17,6 @@ const Sequelize = require('sequelize');
       },
     });
 
-    sequelize.authenticate()
-    .then(function () {
-        console.log("CONNECTED! ");
-    })
-    .catch(function (err) {
-        console.log("SOMETHING DONE GOOFED");
-    })
-    .done();
+   
 
 module.exports = sequelize;

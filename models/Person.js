@@ -1,8 +1,15 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection.js');
-class User extends Model {}
+class Person extends Model {}
 
-User.init(
+Person.ROLES = {
+  Teacher: "Teacher",
+  Student: "Student",
+  Parent: "Parent",
+  Admin: "Admin"
+}
+
+Person.init(
   {
     // define columns
     id: {
@@ -14,7 +21,8 @@ User.init(
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      index: true
     },
     first_name: {
       type: DataTypes.STRING,
@@ -29,20 +37,19 @@ User.init(
       allowNull: false,
     },
     role: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM(Object.keys(Person.ROLES)),
       allowNull: false,
     }
-
   },
   {
     sequelize,
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
     underscored: true,
-    modelName: 'User',
+    modelName: 'Person',
   }
 );
 
 
 
-module.exports = User;
+module.exports = Person;
