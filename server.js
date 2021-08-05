@@ -2,7 +2,8 @@ const express = require('express');
 const session = require('express-session');
 const sequelize = require("./config/connection")
 const flash = require("connect-flash")
-// const passport = require("passport")
+const library = require('passport')
+const passport = require("./config/passport")
 
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
@@ -33,9 +34,9 @@ app.use(
   })
 );
 
-
-// app.use(passport.initialize())
-// app.use(passport.session())
+const middleware = passport(library)
+app.use(middleware.initialize())
+app.use(middleware.session())
 
 app.set('view engine', 'ejs');
 app.use(routes);

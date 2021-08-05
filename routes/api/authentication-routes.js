@@ -47,11 +47,17 @@ router.post('/register-student', async (req, res, next) => {
 
 
 
-router.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login',
-                                   failureFlash: true })
-);
+router.post('/login', (request, response, next) => {
+  console.log('login route test')
+  passport.authenticate(
+    'local',
+    function (error, user, info) {
+      console.log('error test:', error)
+      console.log('user test:', user)
+      console.log('info test:', info)
+    }
+  )
+});
 
 if (process.env.NODE_ENV !== "production") {
   
