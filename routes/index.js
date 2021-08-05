@@ -87,7 +87,13 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/home', (req, res) => {
-  res.render('authenticatedHome')
+  console.log('user test:', req.user)
+  console.log('session test:', req.session)
+  if (req.user && req.session.passport.user) {
+    res.render('authenticatedHome', { user: req.user })
+  } else {
+    res.status(500).send('Not authorized')
+  }
 })
 
 router.post('/login', (req, res, next) => {
