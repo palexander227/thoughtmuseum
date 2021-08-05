@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <title>TM | Login </title>
+</head>
+
+<body>
+    <%- include('partials/header') %>
+    <div class="container">
+        <h2>Login to Thoughtmuseum</h2>
+        <form action='/api/login' method='post'>
+            <input type='text' name='username' placeholder='username'/>
+            <br>
+            <input type='password' name='password' />
+            <br>
+            <button type='submit'>Login</button>
+        </form>
+         <p>Not signed up yet?</p> 
+         <a href='/register-teacher'>Sign up as a Teacher</a>
+         <br>
+         <a href='/register-student'>Sign up as a Student</a>         
+    </div>
+    <%- include('partials/footer') %>
+</body>
+</html>

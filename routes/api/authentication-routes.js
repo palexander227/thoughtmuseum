@@ -4,10 +4,11 @@ const passport = require("passport")
 const bcrypt = require('bcryptjs')
 // The `/api/categories` endpoint
 //assuming for this rollout, we are only identifying them by username and id
+
 //for this demo----consider the following routine
-/* create student account --- coolkid123
+/* create student account --- coolkid123----must do this first
 create teacher --- teacher123
-THEN teacher LOGSIN AND creates workspace
+THEN teacher LOGS IN AND creates workspace
 teacher assigns student to the workspace
 teacher adds post to workspace
 
@@ -30,6 +31,20 @@ router.post('/register-teacher', async (req, res, next) => {
     res.redirect("/login")
   }).catch(next)
 });
+
+router.post('/register-student', async (req, res, next) => {
+  console.log(`/api/register-student | ${req.body.username} ${req.body.password}`) 
+  Person.create({
+    username: req.body.username,
+    first_name: req.body.username, // TODO Get the data from the form/for next time
+    last_name:  req.body.username, // TODO Get the data from the form/for next time
+    password: bcrypt.hashSync(req.body.password),
+    role: Person.ROLES.Student
+  }).then(() => {
+    res.redirect("/login")
+  }).catch(next)
+});
+
 
 
 router.post('/login',

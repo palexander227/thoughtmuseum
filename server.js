@@ -1,6 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const sequelize = require("./config/connection")
+const flash = require("connect-flash")
+// const passport = require("passport")
 
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
@@ -11,6 +13,8 @@ const PORT = process.env.PORT || 3001;
 
 // Static
 app.use(express.static('public'))
+app.use(flash())
+
 
 // Form data
 app.use(express.json());
@@ -29,6 +33,10 @@ app.use(
   })
 );
 
+
+// app.use(passport.initialize())
+// app.use(passport.session())
+
 app.set('view engine', 'ejs');
 app.use(routes);
 
@@ -39,3 +47,14 @@ app.listen(PORT, () => {
 
 // - models
 // - views (signin, signup)
+
+/*TODO:  enable flash messages:
+Global variables
+  .use(function(req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+  })
+
+  */
