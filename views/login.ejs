@@ -1,26 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <%- include('partials/head') %>
-    <title>TM | Login </title>
-</head>
+    <title>TM | Login</title>
+  </head>
 
-<body>
+  <body>
     <%- include('partials/header') %>
-    <div class="container">
-        <h2>Login to Thoughtmuseum</h2>
-        <form action='/api/login' method='post'>
-            <input type='text' name='username' placeholder='username'/>
-            <br>
-            <input type='password' name='password' />
-            <br>
-            <button type='submit'>Login</button>
-        </form>
-         <p>Not signed up yet?</p> 
-         <a href='/register-teacher'>Sign up as a Teacher</a>
-         <br>
-         <a href='/register-student'>Sign up as a Student</a>         
+    <div class="container pt-5">
+      <h2 class="text-center">Login</h2>
+      <div class="row">
+        <div class="col-md-5 col-11 mx-auto">
+          <form action="/api/login" method="post">
+            <div class="form-group">
+              <label class="py-2">Username</label>
+              <input
+                type="text"
+                required
+                id="user"
+                class="form-control"
+                placeholder="Enter username"
+              />
+            </div>
+            <div class="form-group pb-3">
+              <label class="py-2">Password</label>
+              <input
+                type="password"
+                required
+                id="pass"
+                class="form-control"
+                placeholder="Enter Password"
+              />
+            </div>
+            <div class="text-center py-3">
+              <button type="submit" class="btn btn-primary px-5">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="text-center">
+        <p>Not signed up yet?</p>
+        <a href="/register-teacher">Sign up as a Teacher</a>
+        <br />
+        <a href="/register-student">Sign up as a Student</a>
+      </div>
     </div>
     <%- include('partials/footer') %>
-</body>
+  </body>
 </html>

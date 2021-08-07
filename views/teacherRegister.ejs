@@ -1,24 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <%- include("partials/head") %>
     <title>TM | teacher registration</title>
-</head>
-<body>
+  </head>
+  <body class="container">
     <%- include("partials/header") %>
-    <div class="container">
-        <h2>Register as a Teacher</h2>
-        <form action='/api/register-teacher' method='post'>
-            <input type='text' name='username' placeholder='username'/>
-            <br>
-            <input type='password' name='password' />
-            <br>
-            <button type='submit'>Register</button>
+
+    <h2 class="text-center pt-2">Register as a Teacher</h2>
+    <div class="row">
+      <div class="col-md-5 col-11 mx-auto">
+        <form action="/api/register-teacher" method="post">
+          <div class="form-group">
+            <label class="py-2">Username</label>
+            <input
+              type="text"
+              required
+              id="user"
+              class="form-control"
+              placeholder="Enter username"
+            />
+          </div>
+          <div class="form-group pb-3">
+            <label class="py-2">Password</label>
+            <input
+              type="password"
+              required
+              id="pass"
+              class="form-control"
+              placeholder="Enter Password"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Register</button>
         </form>
-         <p>Not a Teacher?</p> 
-         <a href='/register-student'>Register as a Student</a>
-         
+      </div>
     </div>
+    <div class="text-center pb-3">
+      <p>Not a Teacher?</p>
+      <a href="/register-student">Register as a Student</a>
+    </div>
+
     <%- include("partials/footer") %>
-</body>
+  </body>
 </html>

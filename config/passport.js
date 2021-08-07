@@ -56,3 +56,8 @@ module.exports = function(passport){
         }) 
     )
 }
+// const makeMiddleware = require('./passport')
+// const middleware = makeMiddleware(library)
+
+// const middleware = passport.use()
+// module.exports = middleware

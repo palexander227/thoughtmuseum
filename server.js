@@ -34,6 +34,9 @@ app.use(
   })
 );
 
+// app.use(passport.initialize())
+// app.use(passport.session())
+
 const middleware = passport(library)
 app.use(middleware.initialize())
 app.use(middleware.session())
