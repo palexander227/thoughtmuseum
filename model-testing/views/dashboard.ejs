@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('partials/head') %>
+    <title>TM | Login</title>
+  </head>
+
+  <body>
+    <%- include('partials/dashboardHeader') %>
+    <div class="container workspace">
+      <div class="d-flex justify-content-between align-items-center py-4">
+        <h6>My Workspace</h6>
+
+        <% if (name == 'teacher') { %>
+
+        <div>
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Create new Workspace
+          </button>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    New Workspace
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label class="py-2">Title</label>
+                      <input
+                        type="text"
+                        required
+                        class="form-control"
+                        placeholder="Title"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label class="py-2">Description</label>
+                      <input
+                        type="text"
+                        required
+                        class="form-control"
+                        placeholder="Description"
+                      />
+                    </div>
+
+                    <div class="form-group pb-3">
+                      <label class="py-2">Select Student</label>
+                      <select class="form-control" name="categoryId">
+                        <option value="">Select Student</option>
+                        <option value="">Student1</option>
+                        <option value="">Student2</option>
+                        <option value="">Student3</option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Create
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <div class="d-flex pt-5 workcard">
+        <div
+          class="card text-dark bg-light mb-3 workspace-card"
+          style="width: 18rem"
+        >
+          <div class="card-header bg-primary text-white">Math class</div>
+          <div class="card-body">
+            <p>Description: this is a sample description</p>
+            <p>10 Post, 5 Comment</p>
+            <p>Student Sharath</p>
+            <a href="/myclass" type="button" class="btn btn-secondary">view</a>
+          </div>
+        </div>
+
+        <div
+          class="card text-dark bg-light mb-3 workspace-card"
+          style="width: 18rem"
+        >
+          <div class="card-header bg-primary text-white">English class</div>
+          <div class="card-body">
+            <p>Description: this is a sample description</p>
+            <p>10 Post, 5 Comment</p>
+            <p>Student Sharath</p>
+            <a href="/myclass" type="button" class="btn btn-secondary">view</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

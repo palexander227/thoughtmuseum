@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("partials/head") %>
+    <title>TM | student registration</title>
+  </head>
+  <body>
+    <%- include("partials/header") %>
+
+    <div class="container pt-5 student-register">
+      <h2 class="text-center">Register</h2>
+      <div class="row">
+        <div class="col-md-5 col-11 mx-auto">
+          <%- include ("partials/messages") %>
+          <form action="/register" method="post">
+            <div class="form-group">
+              <label class="py-2">Full Name</label>
+              <input
+                type="text"
+                required
+                name="username"
+                class="form-control"
+                placeholder="Enter fullName"
+              />
+            </div>
+            <div class="form-group pb-3">
+              <label class="py-2">Email</label>
+              <input
+                type="email"
+                required
+                name="email"
+                class="form-control"
+                placeholder="Enter Email"
+              />
+            </div>
+            <div class="form-group pb-3">
+              <label class="py-2">Password</label>
+              <input
+                type="password"
+                required
+                name="pass"
+                class="form-control"
+                placeholder="Enter Password"
+              />
+            </div>
+            <div class="form-group pb-3">
+              <label class="py-2">Confirm Password</label>
+              <input
+                type="password"
+                required
+                name="password2"
+                class="form-control"
+                placeholder="Confirm Password"
+              />
+            </div>
+
+            <div class="form-group pb-3">
+              <label for="student">Student</label>
+              <input type="radio" name="role" value="student" />
+            </div>
+            <div class="form-group pb-3">
+              <label for="teacher">Teacher</label>
+              <input type="radio" name="role" value="teacher" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+          </form>
+        </div>
+      </div>
+      <div class="text-center pb-5">
+        <p>Already register?</p>
+        <a href="/login">Login</a>
+      </div>
+    </div>
+
+    <%- include("partials/footer") %>
+  </body>
+</html>
