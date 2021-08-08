@@ -12,7 +12,15 @@
       <ul>
         <li>My Profile</li>
         <li>Change Password</li>
-        <li>Logout</li>
+        <li>
+          <form
+            class="logout-btn"
+            action="/logout?_method=DELETE"
+            method="POST"
+          >
+            <button type="submit">Logout</button>
+          </form>
+        </li>
       </ul>
     </div>
   </div>

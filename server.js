@@ -1,47 +1,66 @@
-const express = require('express');
-const session = require('express-session');
-const sequelize = require("./config/connection")
-const flash = require("connect-flash")
-const library = require('passport')
-const passport = require("./config/passport")
+const express = require("express");
+const session = require("express-session");
+const sequelize = require("./config/connection");
+const flash = require("connect-flash");
+const methodOverride = require("method-override");
+const passport = require("passport");
 
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
-const routes = require('./routes');
+// const initializePassport = require("./passport-config");
+// initializePassport(
+//   passport,
+//   (email) => users.find((user) => user.email === email),
+//   (id) => users.find((user) => user.id === id)
+// );
+
+// const users = [];
+
+const routes = require("./routes");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Static
-app.use(express.static('public'))
-app.use(flash())
-
+app.use(express.static("public"));
+app.use(flash());
 
 // Form data
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 
-// Session
+// app.set("view-engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
+
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "session-secret",
-    store: new SequelizeStore({
-      db: sequelize
-    }),
-    resave: false, // we support the touch method so per the express-session docs this should be set to false
-    proxy: true, // if you do SSL outside of node.
-    saveUninitialized: true
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(methodOverride("_method"));
 
-// app.use(passport.initialize())
-// app.use(passport.session())
+// Session
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET || "session-secret",
+//     store: new SequelizeStore({
+//       db: sequelize,
+//     }),
+//     resave: false, // we support the touch method so per the express-session docs this should be set to false
+//     proxy: true, // if you do SSL outside of node.
+//     saveUninitialized: true,
+//   })
+// );
 
-const middleware = passport(library)
-app.use(middleware.initialize())
-app.use(middleware.session())
+// const middleware = passport(library);
+// app.use(middleware.initialize());
+// app.use(middleware.session());
 
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 app.use(routes);
 
 // sync sequelize models to the database, then turn on the server

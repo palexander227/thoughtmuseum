@@ -1,3 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: sans-serif;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.footer {
+  text-align: center;
+  border-top: 1px solid #ddd;
+  margin-top: auto;
+}
+
+.dashboard {
+  position: relative;
+  border-bottom: 1px solid #ddd;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.workspace-card {
+  margin-right: 50px;
+}
+
+/* DROPDOWN MENU */
+
+.profile-dropdown {
+  position: absolute;
+  right: 10px;
+  top: 80px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  background: #fff;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s;
+  z-index: 99 !important;
+  padding: 0 10px;
+}
+.profile-dropdown ul li {
+  list-style: none;
+  border-bottom: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.profile-dropdown ul li:last-child {
+  border-bottom: unset;
+}
+.profile-dropdown ul {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.profile-dropdown.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.dashboard-header img {
+  cursor: pointer;
+}
+
+.pro-title p {
+  margin-bottom: unset;
+}
+
+.chat-box {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.student-chat {
+  text-align: right;
+}
+
+.student-chat img {
+  margin-left: 15px;
+}
+
+.workcard {
+  flex-wrap: wrap;
+}
+
+.chat-heading {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.chat-heading p {
+  margin-bottom: unset;
+}
+
+.logout-btn button {
+  border: none;
+  background: transparent;
 }

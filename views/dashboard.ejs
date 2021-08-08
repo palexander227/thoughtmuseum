@@ -84,22 +84,32 @@
         </div>
       </div>
       <div class="d-flex pt-5 workcard">
-        <%=data.forEach(function(item){ %>
         <div
           class="card text-dark bg-light mb-3 workspace-card"
           style="width: 18rem"
         >
-          <div class="card-header bg-primary text-white"><%=item.class%></div>
+          <div class="card-header bg-primary text-white">Math class</div>
           <div class="card-body">
-            <p><%=item.post%> post, <%=item.comment%> comment</p>
-            <p><%=item.student%></p>
+            <p>Description: this is a sample description</p>
+            <p>10 Post, 5 Comment</p>
+            <p>Student Sharath</p>
             <a href="/myclass" type="button" class="btn btn-secondary">view</a>
           </div>
         </div>
 
-        <% })%>
+        <div
+          class="card text-dark bg-light mb-3 workspace-card"
+          style="width: 18rem"
+        >
+          <div class="card-header bg-primary text-white">English class</div>
+          <div class="card-body">
+            <p>Description: this is a sample description</p>
+            <p>10 Post, 5 Comment</p>
+            <p>Student Sharath</p>
+            <a href="/myclass" type="button" class="btn btn-secondary">view</a>
+          </div>
+        </div>
       </div>
     </div>
-    <%- include('partials/footer') %>
   </body>
 </html>
