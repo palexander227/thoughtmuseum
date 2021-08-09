@@ -9,9 +9,9 @@
     <%- include('partials/dashboardHeader') %>
     <div class="container workspace">
       <div class="d-flex justify-content-between align-items-center py-4">
-        <h6>My Workspace</h6>
+        <h6>My Workspaces</h6>
 
-        <% if (name == 'teacher') { %>
+        <% if (role == 'Teacher') { %>
 
         <div>
           <!-- Button trigger modal -->
@@ -46,14 +46,16 @@
                   ></button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form class="add-new-workspace" action="/new-workspace" method="POST">
                     <div class="form-group">
-                      <label class="py-2">Title</label>
+                      <label class="py-2">Name</label>
                       <input
                         type="text"
                         required
                         class="form-control"
-                        placeholder="Title"
+                        placeholder="Name"
+                        value="First Workspace"
+                        name="name"
                       />
                     </div>
                     <div class="form-group">
@@ -63,16 +65,18 @@
                         required
                         class="form-control"
                         placeholder="Description"
+                        value="This is just for testing"
+                        name="description"
                       />
                     </div>
 
                     <div class="form-group pb-3">
                       <label class="py-2">Select Student</label>
-                      <select class="form-control" name="categoryId">
+                      <select class="form-control" name="studentId">
                         <option value="">Select Student</option>
-                        <option value="">Student1</option>
-                        <option value="">Student2</option>
-                        <option value="">Student3</option>
+                        <% students.forEach((student) => { %>
+                          <option value="<%= student.id %>"><%= student.username %></option>
+                        <% }); %>
                       </select>
                     </div>
                     <button type="submit" class="btn btn-primary">
@@ -87,32 +91,23 @@
         <% } %>
       </div>
       <div class="d-flex pt-5 workcard">
-        <div
-          class="card text-dark bg-light mb-3 workspace-card"
-          style="width: 18rem"
-        >
-          <div class="card-header bg-primary text-white">Math class</div>
-          <div class="card-body">
-            <p>Description: this is a sample description</p>
-            <p>10 Post, 5 Comment</p>
-            <p>Student Sharath</p>
-            <a href="/myclass" type="button" class="btn btn-secondary">view</a>
-          </div>
-        </div>
 
-        <div
-          class="card text-dark bg-light mb-3 workspace-card"
-          style="width: 18rem"
-        >
-          <div class="card-header bg-primary text-white">English class</div>
-          <div class="card-body">
-            <p>Description: this is a sample description</p>
-            <p>10 Post, 5 Comment</p>
-            <p>Student Sharath</p>
-            <a href="/myclass" type="button" class="btn btn-secondary">view</a>
+        <% workspaces.forEach((workspace) => { %>
+          <div
+            class="card text-dark bg-light mb-3 workspace-card"
+            style="width: 18rem"
+          >
+            <div class="card-header bg-primary text-white"><%= workspace.name %></div>
+            <div class="card-body">
+              <p>Description: <%= workspace.description %></p>
+              <p>10 Post, 5 Comment</p>
+              <p>Student Name: <%= students.find((student) => student.id === workspace.student_id).username %></p>
+              <a href="/myclass" type="button" class="btn btn-secondary">view</a>
+            </div>
           </div>
-        </div>
+        <% }); %>
       </div>
     </div>
+    <script src="js/add-new-workspace.js"></script>
   </body>
 </html>
