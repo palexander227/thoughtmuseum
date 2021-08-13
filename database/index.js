@@ -2,16 +2,26 @@
 
 const { Sequelize } = require("sequelize");
 
-let DB_HOST = process.env.CLEARDB_DATABASE_URL;
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASS,
-  {
-    host: DB_HOST,
-    dialect: "mysql",
-  }
-);
+/*
+var sequelize = new Sequelize('mysql://user:pass@example.com:9821/dbname', {
+  // Look to the next section for possible options
+})
+*/
+
+const sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL, {
+  // Look to the next section for possible options
+  dialect: "mysql"
+});
+
+// const sequelize = new Sequelize(
+//   process.env.DB_NAME,
+//   process.env.DB_USER,
+//   process.env.DB_PASS,
+//   {
+//     host: process.env.DB_HOST,
+//     dialect: "mysql",
+//   }
+// );
 
 sequelize.sync();
 
