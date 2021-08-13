@@ -15,6 +15,6 @@ router.get("/register", forwardAuthenticated, (req, res) => res.render("register
 // API
 router.post("/register", register);
 router.post("/login", login);
-router.get("/logout", logout);
+router.get("/logout", logout);//another api route
 
 module.exports = router;
