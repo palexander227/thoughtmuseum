@@ -1,4 +1,4 @@
-console.log(42);
+console.log('App is running'); // was '42'
 
 const myfunnn = () => {
   const dropdownMenu = document.getElementById("dropdown-menu");
@@ -7,6 +7,7 @@ const myfunnn = () => {
 
 //GET ALL NOTES
 const getAlluser = async () => {
+  console.log('INDEX | getAllUser ')
   const res = await fetch("/api/getAllUserdata", {
     method: "GET",
     headers: {

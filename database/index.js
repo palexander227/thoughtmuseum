@@ -1,3 +1,5 @@
+// requires mysql2, or similar, addon
+
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(

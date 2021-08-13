@@ -3,6 +3,8 @@ const passport = require("passport");
 const Userdata = require("../models/User");
 
 exports.getAllUser = async (req, res, next) => {
+  console.log('CTRL USER | getAllUser ')
+
   const result = await Userdata.findAll();
 
   if (result.length > 0) {
@@ -20,6 +22,8 @@ exports.getAllUser = async (req, res, next) => {
 
 // Register
 exports.register = async (req, res) => {
+  console.log('CTRL USER | register 1 ')
+
   const { username, email, pass, password2, role } = req.body;
   let errors = [];
 
@@ -45,19 +49,26 @@ exports.register = async (req, res) => {
   try {
     const alreadyExistsUser = await Userdata.findOne({ where: { email } });
     if (alreadyExistsUser) {
+      console.log('CTRL USER | register 2 | user already exists')
       req.flash("success_msg", "Email already exist");
       return res.redirect("/register");
     } else {
+      console.log('CTRL USER | register 3 | creating new user')
       const newUser = new Userdata({ username, email, password, role });
       const savedUser = await newUser.save();
       if (savedUser) {
+      console.log('CTRL USER | register 4 | registered!')
+
         req.flash("success_msg", "Registered successfully");
         return res.redirect("/login");
       } else {
+        console.log('CTRL USER | register 5 | something went wrong when saving the user data')
+
         throw "Cannot register user at the moment!";
       }
     }
   } catch (err) {
+    console.log('CTRL USER | register 6 | try/catch block - error')
     console.log(err);
     return res.redirect("/register");
   }
@@ -65,11 +76,18 @@ exports.register = async (req, res) => {
 
 // Login
 exports.login = (req, res, next) => {
-  passport.authenticate("local", {
-    successRedirect: "/dashboard",
-    failureRedirect: "/login",
-    failureFlash: true,
-  })(req, res, next);
+  console.log('CTRL USER | login | attempting passport auth')
+  // wrapping the login passport function in a try catch block to see if this is where unhandled promise is originating
+  try{
+
+    passport.authenticate("local", { // instead of passport we can use bcrypt compare()
+      successRedirect: "/dashboard",
+      failureRedirect: "/login",
+      failureFlash: true,
+    })(req, res, next);
+  }catch (err){
+    console.log('CTRL USER | login promise error', err)
+  }
 };
 
 // Logout

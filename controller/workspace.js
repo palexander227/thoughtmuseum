@@ -5,6 +5,8 @@ const Comment = require("../models/Comment");
 
 //GET WORK SPACE
 exports.getWorkSpace = async (req, res, next) => {
+  console.log('CTRL WORKSPACE | getWorkspace ')
+
   try {
     const { user } = res.locals;
     const workspace = await Workspace.findAll();
