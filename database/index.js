@@ -1,3 +1,6 @@
+// requires ClearDB MySQL, or similar, addon
+console.log('Initializing connection to DB------------')
+
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(
@@ -15,7 +18,7 @@ sequelize.sync();
 (async () => {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
+    console.log("Connection has been established successfully."); // not seeing either of these errors in console
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }

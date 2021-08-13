@@ -20,6 +20,7 @@ exports.getAllUser = async (req, res, next) => {
 
 // Register
 exports.register = async (req, res) => {
+  console.log('CTRL USER | register 1 ')
   const { username, email, pass, password2, role } = req.body;
   let errors = [];
 
@@ -43,21 +44,31 @@ exports.register = async (req, res) => {
   }
   const password = await bcrypt.hash(pass, 10);
   try {
+    console.log('CTRL USER | register 2 | try create user')
+
     const alreadyExistsUser = await Userdata.findOne({ where: { email } });
     if (alreadyExistsUser) {
+      console.log('CTRL USER | register 3 | user already exists')
       req.flash("success_msg", "Email already exist");
       return res.redirect("/register");
     } else {
+      console.log('CTRL USER | register 4 | attempting to save user data')
+
       const newUser = new Userdata({ username, email, password, role });
       const savedUser = await newUser.save();
       if (savedUser) {
+        console.log('CTRL USER | register 5 | registered!')
+
         req.flash("success_msg", "Registered successfully");
         return res.redirect("/login");
       } else {
+        console.log('CTRL USER | register 6 | saving user data failed')
+
         throw "Cannot register user at the moment!";
       }
     }
   } catch (err) {
+    console.log('CTRL USER | register 7 | try/catch - error')
     console.log(err);
     return res.redirect("/register");
   }
