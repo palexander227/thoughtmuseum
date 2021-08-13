@@ -1,11 +1,12 @@
 {
   "name": "thoughtmuseum",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "bump": "npm --no-git-tag-version version patch"
   },
   "keywords": [],
   "author": "",
