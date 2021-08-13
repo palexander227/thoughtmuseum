@@ -1,58 +1,33 @@
-// const LocalStrategy = require('passport-local').Strategy
-// const bcrypt = require('bcryptjs')
-// const Person = require('../models/Person')
+const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require("bcryptjs");
 
-// module.exports = function(passport){
+// Load User model
+const Userdata = require("../models/User");
 
-//     // used to serialize the user for the session
-//     passport.serializeUser(function(user, done) {
-//       console.log('user test:', user)
-//         done(null, user.id);
-//     });
+module.exports = function (passport) {
+  passport.use(
+    new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
+      // Match user
+      Userdata.findOne({
+        where: { email },
+      }).then((user) => {
+        if (!user) {
+          return done(null, false, { message: "That email is not registered" });
+        }
 
-//     // used to deserialize the user
-//     passport.deserializeUser(function(id, done) {
-//         console.log('id test', id)
-//         Person
-//           .findByPk(id)
-//           .then(person => {
-//             console.log('b test')
-//             done(null, person);
-//           })
-//           .catch(error => {
-//             console.log('error test:', error)
-//             done(error)
-//           })
-//     });
+        // Match password
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+          if (err) throw err;
+          if (isMatch) {
+            return done(null, user);
+          } else {
+            return done(null, false, { message: "Password incorrect" });
+          }
+        });
+      });
+    })
+  );
 
-//     return passport.use(
-//         new LocalStrategy({ usernameField: 'username' }, (username, password, done) => {
-//           // Match user
-
-//           console.log('username', username)
-//           console.log('passowrd test:', password)
-//           Person.findOne({
-//             where: { username }
-//           }).then(person => {
-//             console.log('person test:', person)
-//             if (!person) {
-//               return done(null, false, { message: 'Either your username or your password was not quite right.' });
-//             }
-
-//             console.log('person.password test:', person.password)
-
-//             // Match password
-//             bcrypt.compare(password, person.password, (err, isMatch) => {
-//               console.log('bcrypt err:', err)
-//               console.log('isMatch test:', isMatch)
-//               if (err) throw err;
-//               if (isMatch) {
-//                 return done(null, person);
-//               } else {
-//                 return done(null, false, { message: 'Either your username or your password was not quite right.' });
-//               }
-//             });
-//           });
-//         })
-//     )
-// }
+  passport.serializeUser((user, done) => done(null, user));
+  passport.deserializeUser((id, done) => done(null, id));
+};

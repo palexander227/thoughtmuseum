@@ -1,41 +1,39 @@
-const express = require("express");
-const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-// Load User model
-const { Person: Userdata } = require("../models/");
+const Userdata = require("../models/User");
 
-const { forwardAuthenticated } = require("../config/auth");
+exports.getAllUser = async (req, res, next) => {
+  const result = await Userdata.findAll();
 
-// Login Page
-router.get("/login", forwardAuthenticated, (req, res) => res.render("login"));
+  if (result.length > 0) {
+    const { user } = res.locals;
 
-// Register Page
-router.get("/register", forwardAuthenticated, (req, res) =>
-  res.render("register")
-);
+    if (user.role === "teacher") {
+      res.locals.students = result
+        .filter(item => item.dataValues.role === "student")
+        .map(item => item.dataValues);
+    }
+  }
+  
+  next();
+};
 
 // Register
-router.post("/register", async (req, res) => {
+exports.register = async (req, res) => {
   const { username, email, pass, password2, role } = req.body;
   let errors = [];
-
-  console.log(req.body);
 
   if (!username || !email || !pass || !password2 || !role) {
     errors.push({ msg: "Please enter all fields" });
   }
-
   if (pass != password2) {
     errors.push({ msg: "Passwords do not match" });
   }
-
   if (pass.length < 6) {
     errors.push({ msg: "Password must be at least 6 characters" });
   }
-
   if (errors.length > 0) {
-    res.render("register", {
+    return res.render("register", {
       errors,
       username,
       email,
@@ -43,43 +41,40 @@ router.post("/register", async (req, res) => {
       password2,
     });
   }
-
   const password = await bcrypt.hash(pass, 10);
   try {
     const alreadyExistsUser = await Userdata.findOne({ where: { email } });
     if (alreadyExistsUser) {
       req.flash("success_msg", "Email already exist");
-      res.redirect("/register");
+      return res.redirect("/register");
     } else {
       const newUser = new Userdata({ username, email, password, role });
       const savedUser = await newUser.save();
       if (savedUser) {
         req.flash("success_msg", "Registered successfully");
-        res.redirect("/login");
+        return res.redirect("/login");
       } else {
         throw "Cannot register user at the moment!";
       }
     }
   } catch (err) {
     console.log(err);
-    res.redirect("/register");
+    return res.redirect("/register");
   }
-});
+};
 
 // Login
-router.post("/login", (req, res, next) => {
+exports.login = (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/dashboard",
     failureRedirect: "/login",
     failureFlash: true,
   })(req, res, next);
-});
+};
 
 // Logout
-router.get("/logout", (req, res) => {
+exports.logout = (req, res) => {
   req.logout();
   req.flash("success_msg", "You are logged out");
   res.redirect("/login");
-});
-
-module.exports = router;
+};

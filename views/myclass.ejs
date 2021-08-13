@@ -2,63 +2,87 @@
 <html lang="en">
   <head>
     <%- include('partials/head') %>
-    <title>TM | Login</title>
+    <title>TM | MyClass</title>
   </head>
 
   <body>
     <%- include('partials/dashboardHeader') %>
     <div class="container">
       <div class="d-flex justify-content-between align-items-center pt-3">
-        <h6><a href="/dashboard">My workspace</a> > math class</h6>
+        <h6><a href="/dashboard">My workspace</a> > <%= myclass.title%></h6>
       </div>
       <div class="row pt-5">
         <div class="col-md-6 col-11 mx-auto pb-5">
           <div class="chat-heading mb-3">
-            <p><strong>Title:</strong> Math class</p>
-            <p>
-              <strong>Description:</strong> This is description for math class
-            </p>
+            <p><strong>Title:</strong> <%= myclass.title%></p>
+            <p><strong>Description:</strong> <%= myclass.description%></p>
           </div>
-          <div class="chat-box">
-            <div class="teacher-chat">
-              <div class="d-flex align-items-center">
-                <img
-                  width="30px"
-                  src="https://www.mofea.gm/assets/images/no-profile.png"
-                  alt="profile"
-                />
-                <div class="px-3 pro-title">
-                  <p>Peter alexander</p>
-                  <small>Aug 8</small>
-                </div>
-              </div>
-              <p class="pt-2">Hi Emily how are you doing? <span></span></p>
-            </div>
-            <div class="student-chat">
-              <div class="d-flex align-items-center justify-content-end">
-                <div class="pro-title">
-                  <p>Emily blunt</p>
-                  <small>Aug 8</small>
-                </div>
-                <img
-                  width="30px"
-                  src="https://www.mofea.gm/assets/images/no-profile.png"
-                  alt="profile"
-                />
-              </div>
-              <p class="pt-2">Hi Mr. Peter, Doing great! <span></span></p>
-            </div>
 
-            <form>
+          <% post.forEach(function(item){ %>
+            <div class="chat-box mb-3">
+              <div class="teacher-chat">
+                <div class="d-flex align-items-center">
+                  <img
+                    width="30px"
+                    src="https://www.mofea.gm/assets/images/no-profile.png"
+                    alt="profile"
+                  />
+                  <div class="px-3 pro-title">
+                    <p><%= item.username%></p>
+                    <small><%= item.date%></small>
+                  </div>
+                </div>
+                <p class="pt-2"><%= item.content%> <span></span></p>
+              </div>
+
+              <% item.comments.forEach(function(item){ %>
+                <div class="student-chat">
+                  <div class="d-flex align-items-center justify-content-end">
+                    <div class="pro-title">
+                      <p><%= item.username%></p>
+                      <small><%= item.date%></small>
+                    </div>
+                    <img
+                      width="30px"
+                      src="https://www.mofea.gm/assets/images/no-profile.png"
+                      alt="profile"
+                    />
+                  </div>
+                  <p class="pt-2"><%= item.content%> <span></span></p>
+                </div>
+    
+              <%}) %>
+
+              <form action="/api/comment/create/<%= myclass.id %>/<%= myclass.teacherid %>/<%= myclass.studentid %>/<%= item.id %>" method="POST">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    required
+                    name="content"
+                    class="form-control"
+                    placeholder="Add your comment"
+                  />
+                  <button class="btn btn-outline-secondary" type="submit">
+                    comment
+                  </button>
+                </div>
+              </form>
+
+            </div>
+          <% }) %>
+
+          <div class="chat-box">
+            <form action="/api/post/create/<%= myclass.id %>/<%= myclass.studentid %>/<%= myclass.teacherid %>/<%= classid %>" method="POST">
               <div class="input-group mb-3">
                 <input
                   type="text"
                   required
+                  name="content"
                   class="form-control"
-                  placeholder="Type your comment"
+                  placeholder="Add your Post"
                 />
                 <button class="btn btn-outline-secondary" type="submit">
-                  Submit
+                  Post
                 </button>
               </div>
             </form>

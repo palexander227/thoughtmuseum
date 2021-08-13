@@ -6,10 +6,13 @@
   </head>
 
   <body>
-    <%- include('partials/dashboardHeader') %>
+    <%- include('partials/dashboardHeader') %> <%- include ("partials/messages")
+    %>
     <div class="container workspace">
       <div class="d-flex justify-content-between align-items-center py-4">
-        <h6>My Workspace</h6>
+        <h5>My Workspaces</h5>
+
+        <% if (role === 'teacher') { %>
 
         <div>
           <!-- Button trigger modal -->
@@ -44,12 +47,13 @@
                   ></button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form action="/api/workspace/create" method="POST">
                     <div class="form-group">
                       <label class="py-2">Title</label>
                       <input
                         type="text"
                         required
+                        name="title"
                         class="form-control"
                         placeholder="Title"
                       />
@@ -59,6 +63,7 @@
                       <input
                         type="text"
                         required
+                        name="description"
                         class="form-control"
                         placeholder="Description"
                       />
@@ -66,11 +71,12 @@
 
                     <div class="form-group pb-3">
                       <label class="py-2">Select Student</label>
-                      <select class="form-control" name="categoryId">
-                        <option value="">Select Student</option>
-                        <option value="">Student1</option>
-                        <option value="">Student2</option>
-                        <option value="">Student3</option>
+                      <select class="form-control" name="studentid">
+                        <% students.forEach(function(item){ %>
+                        <option value="<%= item.id%>">
+                          <%= item.username %>
+                        </option>
+                        <%}) %>
                       </select>
                     </div>
                     <button type="submit" class="btn btn-primary">
@@ -82,33 +88,66 @@
             </div>
           </div>
         </div>
+        <% } %>
       </div>
-      <div class="d-flex pt-5 workcard">
-        <div
-          class="card text-dark bg-light mb-3 workspace-card"
-          style="width: 18rem"
-        >
-          <div class="card-header bg-primary text-white">Math class</div>
-          <div class="card-body">
-            <p>Description: this is a sample description</p>
-            <p>10 Post, 5 Comment</p>
-            <p>Student Sharath</p>
-            <a href="/myclass" type="button" class="btn btn-secondary">view</a>
-          </div>
-        </div>
 
+      <% if (workspace.length === 0) { %>
+      <div
+        class="alert alert-warning alert-dismissible fade show showmessage"
+        role="alert"
+      >
+        No workspace available
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      <% } %>
+
+      <div class="d-flex pt-5 workcard">
+        <% workspace.forEach(function(item){ %>
         <div
           class="card text-dark bg-light mb-3 workspace-card"
           style="width: 18rem"
         >
-          <div class="card-header bg-primary text-white">English class</div>
+          <div class="card-header bg-primary text-white">
+            <%= item.title%>
+            <a href="/api/workspace/delete/<%= item.id%>">delete</a>
+          </div>
           <div class="card-body">
-            <p>Description: this is a sample description</p>
-            <p>10 Post, 5 Comment</p>
-            <p>Student Sharath</p>
-            <a href="/myclass" type="button" class="btn btn-secondary">view</a>
+            <p>Description: <%= item.description%></p>
+            <p><%= item.postsCount %> Post, <%= item.commentsCount %> Comment</p> 
+            <!-- //! postCount not returning values when using a student role? -->
+
+            <% if(role === 'teacher'){ %>
+            <p>Student: <%= item.studentname%></p>
+            <% } else{ %>
+            <p>Teacher: <%= item.teachername%></p>
+            <% } %>
+
+            <% if(role === 'teacher'){ %>
+
+            <a
+              href="/myclass?classid=<%= item.id%>&studentid=<%= item.studentid%>&teacherid=<%= item.teacherid%>"
+              type="button"
+              class="btn btn-secondary"
+              >view</a
+            >
+            <% } else{ %>
+
+              <a
+              href="/myclass?classid=<%= item.id%>&teacherid=<%= item.teacherid%>&studentid=<%= item.studentid%>"
+              type="button"
+              class="btn btn-secondary"
+              >view</a
+            >
+            <% } %>
+
           </div>
         </div>
+        <%}) %>
       </div>
     </div>
   </body>

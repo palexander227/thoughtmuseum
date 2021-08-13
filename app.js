@@ -20,7 +20,7 @@ app.use(express.static(static_path));
 app.set("view engine", "ejs");
 
 // Express body parser
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 // Express session
 app.use(
@@ -43,12 +43,12 @@ app.use(function (req, res, next) {
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
   res.locals.error = req.flash("error");
+  res.locals.user = req.user;
   next();
 });
 
 // Routes
-app.use(require("./routes/index.js"));
-app.use(require("./routes/users.js"));
+app.use(require("./routes"));
 
 const PORT = process.env.PORT || 5000;
 
