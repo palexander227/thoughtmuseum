@@ -13,7 +13,7 @@ router.get("/login", forwardAuthenticated, (req, res) => res.render("login"));
 router.get("/register", forwardAuthenticated, (req, res) => res.render("register"));
 
 // API
-router.post("/register", register);
+router.post("/register", console.log('ROUTING TO REGISTER'), register);
 router.post("/login", login);
 router.get("/logout", logout);
 
