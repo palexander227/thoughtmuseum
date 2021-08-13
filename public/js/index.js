@@ -5,18 +5,19 @@ const myfunnn = () => {
   dropdownMenu.classList.toggle("active");
 };
 
-//GET ALL NOTES
-const getAlluser = async () => {
-  console.log('INDEX | getAllUser ')
-  const res = await fetch("/api/getAllUserdata", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+//! route does not exist yet
+// //GET ALL NOTES
+// const getAlluser = async () => {
+//   console.log('INDEX | getAllUser ')
+//   const res = await fetch("/api/getAllUserdata", {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
 
-  const data = await res.json();
-  console.log(data);
-};
+//   const data = await res.json();
+//   console.log(data);
+// };
 
-getAlluser();
+// getAlluser();
