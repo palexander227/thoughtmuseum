@@ -9,3 +9,5 @@ This application acts in much the same way as Google classroom. Instructors can 
 ## Disclaimer
 
 This project is still in the early stages of development and a further, more detailed and complete explanation of the features here are still in progress.
+
+A current working version of the deployed site can be found here https://thoughtmuseum-mod-1.herokuapp.com/
